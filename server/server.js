@@ -8,7 +8,16 @@ app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-
+app.get('/restaurants', (req, res) => {
+    pool.query('SELECT * FROM "Restaurants";')
+        .then((results) => {
+            console.log(results.rows);
+            res.send(results.rows);
+        }).catch((error) => {
+            console.log('error with SQL select for restaurants', error);
+            res.sendStatus(500);
+        });
+})
 
 
 
