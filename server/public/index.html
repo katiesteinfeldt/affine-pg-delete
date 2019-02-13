@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Restaurant</title>
+    <script src="jQuery.js"></script>
+    <script src="client.js"></script>
+
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td,
+        th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Restaurants</h1>
+    <span><input placeholder="Name" id="restaurantName"></input></span><input placeholder="Type" id="restaurantType"></input><button>Submit</button>
+    <pre></pre>
+    <div>
+        <table style="width:40%">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Type</th>
+                </tr>
+            </thead>
+            <tbody id="restaurantTable">
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
