@@ -27,4 +27,16 @@ router.post('/', (req, res) => {
         });
 });
 
+router.delete('/:id', (req, res) => {//id could be taco or number or anything. colon means anything
+    console.log('/restaurants DELETE route was hit');
+    console.log('req.params', req.params);
+    pool.query(`DELETE FROM "restaurants" WHERE "id"= $1;`, [req.params.id])
+        .then(() => {
+            res.sendStatus(204);
+        }).catch((error) => {
+            console.log('error with restaurants delete query', error);
+            res.sendStatus(500);
+        });
+});
+
 module.exports = router;
