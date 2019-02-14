@@ -5,7 +5,7 @@ const pool = require('../modules/pool');
 
 
 router.get('/', (req, res) => {
-    pool.query('SELECT * FROM "restaurants";')
+    pool.query('SELECT * FROM "restaurants" ORDER BY "id";')
         .then((results) => {
             console.log(results.rows);
             res.send(results.rows);
@@ -17,8 +17,8 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     console.log('/restaurants POST route was hit');
-    pool.query(`INSERT INTO "restaurants" ("restaurant_name", "restaurant_type")
-    VALUES ($1, $2);`, [req.body.restaurantName, req.body.restaurantType])
+    pool.query(`INSERT INTO "restaurants" ("restaurant_name", "restaurant_type", "rating")
+    VALUES ($1, $2, $3);`, [req.body.restaurantName, req.body.restaurantType, req.body.restaurantRating])
         .then(() => {
             res.sendStatus(201);
         }).catch((error) => {
@@ -35,6 +35,20 @@ router.delete('/:id', (req, res) => {//id could be taco or number or anything. c
             res.sendStatus(204);
         }).catch((error) => {
             console.log('error with restaurants delete query', error);
+            res.sendStatus(500);
+        });
+});
+
+
+router.put('/:id', (req, res) => {//id could be taco or number or anything. colon means anything
+    console.log('/restaurants PUT route was hit');
+    console.log('req.params', req.params);
+    pool.query(`UPDATE "restaurants"
+    SET "rating" = 5 WHERE "id" = $1;`, [req.params.id])
+        .then(() => {
+            res.sendStatus(204);
+        }).catch((error) => {
+            console.log('error with restaurants update query', error);
             res.sendStatus(500);
         });
 });
