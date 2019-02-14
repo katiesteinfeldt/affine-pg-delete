@@ -43,8 +43,9 @@ router.delete('/:id', (req, res) => {//id could be taco or number or anything. c
 router.put('/:id', (req, res) => {//id could be taco or number or anything. colon means anything
     console.log('/restaurants PUT route was hit');
     console.log('req.params', req.params);
+    console.log(req.body.rating);
     pool.query(`UPDATE "restaurants"
-    SET "rating" = 5 WHERE "id" = $1;`, [req.params.id])
+    SET "rating" = $1 WHERE "id" = $2;`, [req.body.rating, req.params.id])
         .then(() => {
             res.sendStatus(204);
         }).catch((error) => {

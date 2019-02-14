@@ -22,7 +22,7 @@ function getRestaurants() {
                 <tr>
                     <td>${response[i].restaurant_name}</td>
                     <td>${response[i].restaurant_type}</td>
-                    <td>${response[i].rating}</td>
+                    <td><input value="${response[i].rating}"/></td>
                     <td><button class="saveButton" data-id="${response[i].id}">Save</button>
                     <td><button class="deleteButton" data-id="${response[i].id}">Delete</button></td>
                 </tr>
@@ -70,8 +70,10 @@ function saveRestaurant() {
     restaurantId = $(this).data().id;
     $.ajax({
         type: 'PUT',
-        url: '/restaurants/' + restaurantId
-
+        url: '/restaurants/' + restaurantId,
+        data: {
+            rating: $(this).closest('tr').find('input').val()
+        }
     }).then(function () {
         getRestaurants();
     })
